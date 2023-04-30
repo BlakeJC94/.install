@@ -1,14 +1,96 @@
-#!/usr/bin/env bash
+sudo apt-get update
 
-DOTS="${HOME}"/.install
+# General tools
+sudo apt-get install -y \
+    wget \
+    curl \
+    git \
+    tree \
+    nvtop \
+    bashtop \
+    unzip \
+    tldr \
+    zathura \
+    fortune \
+    direnv \
+    stow \
+    xclip \
+    unclutter-xfixes
+
+# Python deps
+sudo apt-get install -y \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    libbz2-dev  \
+    libreadline-dev \
+    libsqlite3-dev curl \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    libxml2-dev \
+    libxmlsec1-dev \
+    libffi-dev \
+    liblzma-dev
+
+# LuaJIT deps
+sudo apt-get install -y \
+    linux-headers-$(uname -r) \
+    build-essential \
+    libreadline-dev
+
+# Brew deps
+sudo apt-get install -y \
+    build-essential \
+    procps \
+    curl \
+    file \
+    git
+
+# Install brew (sudo)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"  # TODO .profile
+
+# TODO source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh in .profile
+# TODO bash /home/linuxbrew/.linuxbrew/opt/fzf/install
+# TODO add set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf in vim?
+# TODO [ -f ~/.fzf.bash ] && source ~/.fzf.bash in .profile
+brew install \
+    nvim \
+    tmux \
+    asdf \
+    ncspot \
+    aws-sso-cli \
+    tealdeer \
+    bat \
+    git-delta \
+    fd \
+    go-jira \
+    ripgrep \
+    gh \
+    fzf \
+    neofetch \
+    jq
 
 
-bash "${DOTS}"/.scripts/link.sh
+# flatpak
+flatpak install flathub org.wezfurlong.wezterm
+# TODO alias wezterm='flatpak run org.wezfurlong.wezterm'
+flatpak install flathub com.slack.Slack
+flatpak install flathub us.zoom.Zoom
+flatpak install flathub io.mpv.Mpv
 
-sudo bash "${DOTS}"/.scripts/sudo/apt.sh
-# sudo bash "${DOTS}"/.scripts/sudo/pyenv.sh
-bash "${DOTS}"/.scripts/asdf.sh
-bash "${DOTS}"/.scripts/flatpak.sh
+# Font
+git clone --filter=blob:none --sparse git@github.com:ryanoasis/nerd-fonts ~/.nerd-fonts
+pushd .nerd-fonts
+git sparse-checkout add patched-fonts/JetBrainsMono
+bash -c "./install.sh JetBrainsMono"
+popd
 
-# sudo bash "${DOTS}"/.scripts/sudo/install_scripts.sh
-# bash "${DOTS}"/.scripts/install_scripts.sh
+# asdf
+source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
+asdf plugin add python
+asdf plugin add nodejs
+asdf plugin add rust
+asdf plugin add julia
+asdf plugin add luajit https://github.com/smashedtoatoms/asdf-luaJIT.git

@@ -90,6 +90,8 @@ git sparse-checkout add patched-fonts/JetBrainsMono
 bash -c "./install.sh JetBrainsMono"
 popd
 
+ssh-keygen -t ed25519 -C "blakejamescook@gmail.com"
+
 # asdf
 source $HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh
 asdf plugin add python

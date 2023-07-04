@@ -17,7 +17,7 @@ sudo apt-get install -y \
     stow \
     xclip \
     unclutter-xfixes
-    
+
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Python deps
@@ -73,7 +73,14 @@ brew install \
     gh \
     fzf \
     neofetch \
-    jq
+    jq \
+    stylua \
+    pyright \
+    black \
+    luacheck \
+    ruff \
+    lua-language-server \
+    bash-language-server
 
 
 # flatpak

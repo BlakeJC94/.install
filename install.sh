@@ -13,7 +13,6 @@ sudo apt-get install -y \
     tldr \
     zathura \
     fortune \
-    direnv \
     stow \
     xclip \
     unclutter-xfixes
